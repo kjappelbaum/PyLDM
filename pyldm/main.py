@@ -321,6 +321,9 @@ class Main(tk.Frame):
     def plotWidgets(self):
 	self.numCvar = tk.StringVar()
 	self.numCvar.set('10')
+        self.saveArrayName = tk.StringVar()
+	self.saveArrayName.set('/home/kevin/Documents/uni/EPFL/MA2/')
+
 
 	self.plotFrame = tk.Frame(self.svdFrame)
 	self.plotFrame.pack(side='top', fill='both', expand=True, padx=10, pady=10)
@@ -332,14 +335,20 @@ class Main(tk.Frame):
 	self.plotLabels.pack(side='left', fill='both', expand=True)
 	self.numContourLabel = tk.Label(self.plotLabels, text='Num Contours', font=self.font_l)
 	self.numContourLabel.pack(side='left', fill='x')
+        self.saveLabel = tk.Label(self.plotLabels, text='Filename', font=self.font_l)
+	self.saveLabel.pack(side='bottom', fill='x')
 
 	self.plotEntries = tk.Frame(self.plotFrame)
 	self.plotEntries.pack(side='left', fill='both', expand=True)
 	self.numContours = tk.Entry(self.plotEntries, textvariable=self.numCvar)
 	self.numContours.pack(side='left',fill='x')
+	self.saveName = tk.Entry(self.plotEntries, textvariable=self.saveArrayName)
+	self.saveName.pack(side='bottom',fill='x')
+
 
 	self.rePlotButton = tk.Button(self.plotEntries, text='Replot', command=self.replot)
 	self.rePlotButton.pack(side='left')
+        
 
 
     def load(self):    

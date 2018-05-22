@@ -43,7 +43,7 @@ class LDA(object):
 	self.rhos = np.linspace(0.1, 0.9, 9)
 
     def run_LDA(self, GA_taus=None):
-	if self.reg == 'L2':
+        if self.reg == 'L2':
 	    GCVs, Cps = self._L2()
 	    lcurve_x, lcurve_y, k = self._lcurve()
             self._plot_lcurve(lcurve_x, lcurve_y, k)
@@ -400,7 +400,7 @@ class LDA(object):
         ax.annotate(self.alphas[Cpmin], (self.alphas[Cpmin], Cps[Cpmin]))
         ax.set_xlabel('Alpha', fontsize=14)
         ax.set_title('Cp', fontsize=16)
-        if GCVs != None:
+        if GCVs is not None:
             fig_gcv.canvas.set_window_title('Cps and GCVs')
             ax2 = fig_gcv.add_subplot(122)
             ax2.plot(self.alphas, GCVs, 'bo-')
@@ -422,6 +422,7 @@ class LDA(object):
 	    Contour_Levels = np.concatenate((C_neg, C_pos))
 	else:
 	    Contour_Levels = [0]
+        print self.x_opts
 	if self.reg == 'elnet':
             C = self.ax.contourf(self.wls, self.taus, self.x_opts[:,:,0, 6], cmap=plt.cm.seismic, levels=Contour_Levels)
 	else:
@@ -478,9 +479,9 @@ class LDA(object):
 
 	    self.ax.clear()
             self.ax2.clear()
-            self.ax.set_title('Alpha = %f' % self.alphas[a])
-            self.ax.set_ylabel(r'$\tau$', fontsize=16)
-            self.ax.set_xlabel('Wavelength', fontsize=16)
+            self.ax.set_title(r'$\alpha$ = %f' % self.alphas[a])
+            self.ax.set_ylabel(r'$\tau$ /ps', fontsize=14)
+            self.ax.set_xlabel('wavelength / nm', fontsize=14)
 	    self.ax.set_yscale('log')
 
             self.ax2.set_title('Wavelength = %f' % self.wls[wl])
@@ -490,6 +491,7 @@ class LDA(object):
             self.ax2.yaxis.set_label_position('right')
             self.ax2.yaxis.tick_right()
             self.ax2.yaxis.label.set_rotation(270)
+            
 
             if self.reg == 'elnet':
                 max_c = np.max(np.absolute(self.x_opts[:, :, a, r]))
@@ -510,15 +512,15 @@ class LDA(object):
                 self.ax2.plot(self.taus, self.x_opts[:, wl, a])
             plt.colorbar(C)
 
-	    if GA_taus != None:
+	    if GA_taus is not None:
 	        for i in range(len(GA_taus)):
 		    self.ax.axhline(GA_taus[i], linestyle='dashed', color='k')
 
-            if len(Contour_Levels) > 1:
+            if Contour_Levels is not None:
                 for i in range(len(Contour_Levels)):
                     self.ax2.axhline(Contour_Levels[i], linestyle='dashed', color='k')
             self.fig_ldm.canvas.draw_idle()
-#            plt.draw()
+            plt.draw()
 
         self.S.on_changed(update)
         self.S2.on_changed(update)
