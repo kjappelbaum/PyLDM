@@ -1,0 +1,3 @@
+- Implement at least a crude save option
+- Make Axislabels interchangable 
+- Make Lasso a bit more robutst

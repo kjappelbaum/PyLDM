@@ -345,10 +345,13 @@ class Main(tk.Frame):
 	self.saveName = tk.Entry(self.plotEntries, textvariable=self.saveArrayName)
 	self.saveName.pack(side='bottom',fill='x')
 
-
 	self.rePlotButton = tk.Button(self.plotEntries, text='Replot', command=self.replot)
 	self.rePlotButton.pack(side='left')
+       
+	self.saveButton = tk.Button(self.plotEntries, text='Save raw lifetime array', command=self.saveArray)
+	self.saveButton.pack(side='bottom')
         
+
 
 
     def load(self):    
@@ -409,6 +412,9 @@ class Main(tk.Frame):
 	self.LDAnalyzer.replot(GA_taus=self.GA_taus, num_c=int(self.numCvar.get()))
 	plt.show()
 	plt.close()
+
+    def saveArray(self):
+        print self.saveArrayName
 
     def tsvd_lda(self):
 	self.LDAnalyzer.run_tsvd(int(self.tsvdK.get()), float(self.tsvdTaumin.get()), float(self.tsvdTaumax.get()), float(self.tsvdNt.get()), self.GA_taus)
