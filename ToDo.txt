@@ -1,4 +1,6 @@
-- Implement at least a crude save option
+- Implement at least a crude save option, maybe create new folder for each saving? 
 - Make Axislabels interchangable 
 - Make Lasso a bit more robutst
 - Publish conda .yml
+- Add option to save analyis parameters
+- Add option to save statistics curves
