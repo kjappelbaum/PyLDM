@@ -423,7 +423,8 @@ class Main(tk.Frame):
 	plt.close()
 
     def saveArray(self):
-        print self.saveArrayName.get()
+        print "Save button pressed"
+        self.LDAnalyzer.saveArray(saveArrayPath = self.saveArrayPath.get(), saveArrayBaseName = self.saveArrayBaseName.get())
 
     def tsvd_lda(self):
 	self.LDAnalyzer.run_tsvd(int(self.tsvdK.get()), float(self.tsvdTaumin.get()), float(self.tsvdTaumax.get()), float(self.tsvdNt.get()), self.GA_taus)
