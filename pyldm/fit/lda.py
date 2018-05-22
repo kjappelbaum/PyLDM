@@ -62,9 +62,15 @@ class LDA(object):
         self._plot_LDM(GA_taus, num_c)
 
     def saveArray(self, saveArrayPath="home/kevin/Dcouments/uni/EPFL/MA2/", saveArrayBaseName="test"):
-        savename_z = saveArrayPath + saveArrayBaseName + "z.txt"
-        savename_tau = saveArrayPath + saveArrayBaseName + "tau.txt"
-        #np.savetxt(savename_z, self.x_opts)
+        savename_tau = saveArrayPath + saveArrayBaseName + "taus.csv"
+        print self.x_opts[:,:,1].shape
+        #Better have a folder for this output ...
+        newpath_output = saveArrayPath + "arrays/"
+        if not os.path.exists(newpath_output):
+            os.makedirs(newpath_output)
+        for i in range(0,self.x_opts.shape[2]):
+            savename_z = newpath_output + "z_values_alpha_" + str(self.alphas[i]) + ".csv"
+            np.savetxt(savename_z, self.x_opts[:,:,i])
         np.savetxt(savename_tau, self.taus)
 
     #####################################
@@ -422,14 +428,12 @@ class LDA(object):
 	self.fig_ldm.canvas.set_window_title('LDM')
 	self.ax = self.fig_ldm.add_subplot(121)
 	max_c = np.max(np.absolute(self.x_opts[:, :, 0]))
-        print max_c
 	if max_c > 0:
 	    C_pos = np.linspace(0, max_c, num_c)
 	    C_neg = np.linspace(-max_c, 0, num_c, endpoint=False)
 	    Contour_Levels = np.concatenate((C_neg, C_pos))
 	else:
 	    Contour_Levels = [0]
-        print Contour_Levels
 	if self.reg == 'elnet':
             C = self.ax.contourf(self.wls, self.taus, self.x_opts[:,:,0, 6], cmap=plt.cm.seismic, levels=Contour_Levels)
 	else:
