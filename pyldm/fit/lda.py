@@ -77,7 +77,8 @@ class LDA(object):
            
             h5f.create_dataset('taus', data=self.taus) 
             h5f.create_dataset('wls', data=self.wls) 
-            
+            h5f.create_dataset('L-curve_x', data=self.lx) 
+            h5f.create_dataset('L-curve_y', data=self.ly) 
             h5f.close()
             print "Saving of " + savename + " suceeded!"
     #####################################

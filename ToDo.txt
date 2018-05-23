@@ -1,4 +1,3 @@
-- Implement at least a crude save option, maybe create new folder for each saving? 
 - Make Axislabels interchangable 
 - Make Lasso a bit more robutst
 - Publish conda .yml
@@ -6,3 +5,5 @@
 - Add option to save statistics curves
 - Add note for users when there is nothing to save,
 - Make hd5 file pandas compatible
+- Maybe include the pyTorch GVD correction
+- Add Batch mode 
