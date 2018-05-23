@@ -25,6 +25,7 @@ import matplotlib.pyplot as plt
 import Tkinter as tk
 import re
 import os
+import h5py 
 from tkFileDialog import askopenfilename
 from fit.lda import *
 from fit.svd_ga import *

@@ -18,6 +18,9 @@
 
  """
 import numpy as np
+import h5py
+import os
+import os.path
 from numpy.linalg import *
 from scipy import *
 from scipy.sparse.linalg import eigs
@@ -61,18 +64,22 @@ class LDA(object):
         plt.close(self.fig_ldm)
         self._plot_LDM(GA_taus, num_c)
 
-    def saveArray(self, saveArrayPath="home/kevin/Dcouments/uni/EPFL/MA2/", saveArrayBaseName="test"):
-        savename_tau = saveArrayPath + saveArrayBaseName + "taus.csv"
-        print self.x_opts[:,:,1].shape
-        #Better have a folder for this output ...
-        newpath_output = saveArrayPath + "arrays/"
-        if not os.path.exists(newpath_output):
-            os.makedirs(newpath_output)
-        for i in range(0,self.x_opts.shape[2]):
-            savename_z = newpath_output + "z_values_alpha_" + str(self.alphas[i]) + ".csv"
-            np.savetxt(savename_z, self.x_opts[:,:,i])
-        np.savetxt(savename_tau, self.taus)
-
+    def saveArray(self, saveArrayPath="home/kevin/Documents/uni/EPFL/MA2/", saveArrayBaseName="test"):
+        savename = saveArrayPath + saveArrayBaseName + ".h5"
+        if os.path.isfile(savename):
+            print "File already exists, delete it or choose another filename!"
+        else:
+            h5f = h5py.File(savename, 'w')
+            for i in range(0, self.x_opts.shape[2]):
+                dataset_name = str(self.alphas[i])
+                print "saved alpha = " + dataset_name
+                h5f.create_dataset(dataset_name, data = self.x_opts[:,:,i])
+           
+            h5f.create_dataset('taus', data=self.taus) 
+            h5f.create_dataset('wls', data=self.wls) 
+            
+            h5f.close()
+            print "Saving of " + savename + " suceeded!"
     #####################################
     # Data and Initialization Functions #
     #####################################

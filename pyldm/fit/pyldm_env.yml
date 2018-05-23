@@ -1,0 +1,14 @@
+name: pyldm
+channels: 
+     - anaconda
+     - conda-forge
+dependencies: 
+     - python=2.7.14
+     - numpy= 
+     - scipy=
+     - os=
+     - re=
+     - h5py=
+     - matplotlib=
+     - TKinter= 
+
