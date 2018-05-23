@@ -4,4 +4,5 @@
 - Publish conda .yml
 - Add option to save analyis parameters
 - Add option to save statistics curves
-- Add note for users when there is nothing to save
+- Add note for users when there is nothing to save,
+- Make hd5 file pandas compatible
