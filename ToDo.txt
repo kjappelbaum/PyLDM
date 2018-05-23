@@ -8,3 +8,4 @@
 - Maybe include the pyTorch GVD correction to make the programm a bit more self-contained (but then also averagin + noise + parity should be included ...)
 - Add Batch mode 
 - Display current filename somewhere
+- Can we make the code faster? (Cython, GPU acceleration with pyTorch?)

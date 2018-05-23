@@ -77,8 +77,14 @@ class LDA(object):
            
             h5f.create_dataset('taus', data=self.taus) 
             h5f.create_dataset('wls', data=self.wls) 
-            h5f.create_dataset('L-curve_x', data=self.lx) 
-            h5f.create_dataset('L-curve_y', data=self.ly) 
+            if self.reg == 'L2':
+	        lcurve_x, lcurve_y, k = self._lcurve()
+                h5f.create_dataset('L-curve_x', data=lcurve_x) 
+                h5f.create_dataset('L-curve_y', data=lcurve_y) 
+	    elif self.reg == 'L1':
+                l1x, l1y, k = self._l1curve()
+                h5f.create_dataset('L-curve_x', data=l1x) 
+                h5f.create_dataset('L-curve_y', data=l1y) 
             h5f.close()
             print "Saving of " + savename + " suceeded!"
 
