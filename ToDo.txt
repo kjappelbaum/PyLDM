@@ -5,5 +5,6 @@
 - Add option to save statistics curves
 - Add note for users when there is nothing to save,
 - Make hd5 file pandas compatible
-- Maybe include the pyTorch GVD correction
+- Maybe include the pyTorch GVD correction to make the programm a bit more self-contained (but then also averagin + noise + parity should be included ...)
 - Add Batch mode 
+- Display current filename somewhere

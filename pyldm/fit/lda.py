@@ -72,7 +72,7 @@ class LDA(object):
             h5f = h5py.File(savename, 'w')
             for i in range(0, self.x_opts.shape[2]):
                 dataset_name = str(self.alphas[i])
-                print "saved alpha = " + dataset_name
+                #print "saved alpha = " + dataset_name
                 h5f.create_dataset(dataset_name, data = self.x_opts[:,:,i])
            
             h5f.create_dataset('taus', data=self.taus) 
@@ -81,6 +81,8 @@ class LDA(object):
             h5f.create_dataset('L-curve_y', data=self.ly) 
             h5f.close()
             print "Saving of " + savename + " suceeded!"
+
+
     #####################################
     # Data and Initialization Functions #
     #####################################
