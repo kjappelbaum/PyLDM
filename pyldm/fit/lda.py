@@ -459,7 +459,7 @@ class LDA(object):
         self.ax.set_ylabel(r'$\tau$', fontsize=14)
         self.ax.set_xlabel('Wavelength', fontsize=14)
         self.ax.set_title('Alpha = %f' % self.alphas[0])
-	if GA_taus != None:
+	if GA_taus is not None:
 	    for i in range(len(GA_taus)):
 		self.ax.axhline(GA_taus[i], linestyle='dashed', color='k')
 	self.ax2 = self.fig_ldm.add_subplot(122)

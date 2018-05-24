@@ -1,5 +1,6 @@
 - Make Axislabels interchangable 
 - Make Lasso a bit more robutst
+- Add breaks, keyboard-interrupts
 - Publish conda .yml
 - Add option to save analyis parameters
 - Add option to save statistics curves
