@@ -91,13 +91,17 @@ class LDA(object):
                 h5f.create_dataset('taus', data=self.taus) 
                 h5f.create_dataset('wls', data=self.wls) 
             elif self.reg == 'elnet':
-                r = int(self.S3.val) 
-                for i in range(0,self.x_opts.shape[2]):
-                    dataset_name = str(self.alphas[i])
-                    h5f.create_dataset(dataset_name, data = self.x_opts[:, :, i, r])
+                # For Elastic net, We save the maps grouped by rho, and then have a list of alphas in each group
+                for i in range(0,len(self.rhos)): 
+                    grp_name = str(self.rhos[i])
+                    grp = h5f.create_group(grp_name)
+                    for j in range(0,len(self.alphas)):
+                        dataset_name = str(self.alphas[j])
+                        grp.create_dataset(dataset_name, data = self.x_opts[:, :, j, i])
                 
                 h5f.create_dataset('taus', data=self.taus) 
                 h5f.create_dataset('wls', data=self.wls) 
+                h5f.create_dataset('rhos', data=self.rhos) 
 
             h5f.close()
 
