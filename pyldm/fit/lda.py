@@ -70,22 +70,37 @@ class LDA(object):
             print "File already exists, delete it or choose another filename!"
         else:
             h5f = h5py.File(savename, 'w')
-            for i in range(0, self.x_opts.shape[2]):
-                dataset_name = str(self.alphas[i])
-                #print "saved alpha = " + dataset_name
-                h5f.create_dataset(dataset_name, data = self.x_opts[:,:,i])
-           
-            h5f.create_dataset('taus', data=self.taus) 
-            h5f.create_dataset('wls', data=self.wls) 
             if self.reg == 'L2':
 	        lcurve_x, lcurve_y, k = self._lcurve()
                 h5f.create_dataset('L-curve_x', data=lcurve_x) 
                 h5f.create_dataset('L-curve_y', data=lcurve_y) 
+                for i in range(0, self.x_opts.shape[2]):
+                    dataset_name = str(self.alphas[i])
+                    h5f.create_dataset(dataset_name, data = self.x_opts[:,:,i])
+           
+                h5f.create_dataset('taus', data=self.taus) 
+                h5f.create_dataset('wls', data=self.wls) 
 	    elif self.reg == 'L1':
                 l1x, l1y, k = self._l1curve()
                 h5f.create_dataset('L-curve_x', data=l1x) 
                 h5f.create_dataset('L-curve_y', data=l1y) 
+                for i in range(0, self.x_opts.shape[2]):
+                    dataset_name = str(self.alphas[i])
+                    h5f.create_dataset(dataset_name, data = self.x_opts[:,:,i])
+           
+                h5f.create_dataset('taus', data=self.taus) 
+                h5f.create_dataset('wls', data=self.wls) 
+            elif self.reg == 'elnet':
+                r = int(self.S3.val) 
+                for i in range(0,self.x_opts.shape[2]):
+                    dataset_name = str(self.alphas[i])
+                    h5f.create_dataset(dataset_name, data = self.x_opts[:, :, i, r])
+                
+                h5f.create_dataset('taus', data=self.taus) 
+                h5f.create_dataset('wls', data=self.wls) 
+
             h5f.close()
+
             print "Saving of " + savename + " suceeded!"
 
 
