@@ -142,6 +142,7 @@ class LDA(object):
         return mu
 
     # Matrix of Exponential Decays
+    @jit 
     def genD(self):
         D = np.zeros([len(self.times), len(self.taus)])
         for i in range(len(D)):
@@ -162,6 +163,7 @@ class LDA(object):
 
     # Calculate Tikhonov solutions for all wavelengths, and all alphas
     # Runs GCV and Cp, either independently or for all wavelengths simultaneously
+    @jit
     def _L2(self):
 	if self.simfit:
 	    GCVs = np.zeros([len(self.alphas)])
@@ -194,7 +196,8 @@ class LDA(object):
         Sinv = np.diag(1/S)
         x_opt = V.dot(Sinv).dot(Ut).dot(A_aug)
         return x_opt
-
+    
+    @jit
     def _calc_H_and_S(self, alpha):
         X = np.transpose(self.D).dot(self.D) + alpha*np.transpose(self.L).dot(self.L)
         U, S, Vt = np.linalg.svd(X, full_matrices=False)
@@ -346,7 +349,7 @@ class LDA(object):
 
     # Calculate Elastic Net Solution for every alpha and rho
     # First creates augmented matrices to remove L2 penalty, reducing problem to a LASSO regularization
-    @jit
+    #@jit
     def _elnet(self):
         G, C = self._L2()
         x = self.x_opts[:, :, 0]
