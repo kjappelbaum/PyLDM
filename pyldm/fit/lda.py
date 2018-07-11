@@ -18,6 +18,7 @@
 
  """
 import numpy as np
+from numba import jit # to precompile some bottleneck parts
 import h5py
 import os
 import os.path
@@ -178,7 +179,8 @@ class LDA(object):
 	    GCVs[alpha] = self._calc_GCV(alpha, H)
             Cps[alpha] = self._calc_Cp(alpha, S)
 	return GCVs, Cps
-
+    
+    @jit
     def _solve_L2(self, alpha):
         if alpha != 0:
             D_aug = np.concatenate((self.D, alpha**(0.5)*self.L))
@@ -281,6 +283,8 @@ class LDA(object):
 
     # Giving same result for first and last alpha ???
     # Does the regularized least squares after converting to orthogonal design matrix
+   
+    @jit
     def _L1_min(self, D, A, alpha):
 	p = len(D[0])
 	Dt = np.transpose(D)
@@ -305,7 +309,8 @@ class LDA(object):
                     x[i, j] = np.real(x_new)
                     cond = (x[i, j]-x_old[i, j])/x_old[i, j]
 	return x
-
+    
+    @jit
     def _calc_L1_Cp(self, alpha, wl=None):
         n = len(self.times)
 	if wl != None:
@@ -341,6 +346,7 @@ class LDA(object):
 
     # Calculate Elastic Net Solution for every alpha and rho
     # First creates augmented matrices to remove L2 penalty, reducing problem to a LASSO regularization
+    @jit
     def _elnet(self):
         G, C = self._L2()
         x = self.x_opts[:, :, 0]

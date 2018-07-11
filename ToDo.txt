@@ -10,3 +10,6 @@
 - Add Batch mode 
 - Display current filename somewhere
 - Can we make the code faster? (Cython, GPU acceleration with pyTorch?)
+- The way of cycling through rhos is painful (million numbers appear)
+- Statistics for rho selection
+- Do a bit of profiling to see where Numba is useful
