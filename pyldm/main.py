@@ -53,6 +53,11 @@ class Main(tk.Frame):
         self.tmaxvar = tk.StringVar()
         self.wl1var = tk.StringVar()
         self.wl2var = tk.StringVar()
+        
+        #Include a filename sting / edit July, 2018
+        self.filenamevar = tk.StringVar()
+        self.filenamevar.set('Filename')
+        #
 
         self.fwhmvar = tk.StringVar()
         self.fwhmvar.set('0')
@@ -67,6 +72,8 @@ class Main(tk.Frame):
 	self.dataButtons.pack(side='top', fill='x')
         self.loadButton = tk.Button(self.dataButtons, text="Load File", command=self.load)
         self.loadButton.pack(side='left', anchor='w')
+        self.filenamelabel = tk.Label(self.dataButtons, textvariable=self.filenamevar)
+        self.filenamelabel.pack(side="left", anchor="w")
         self.quitButton = tk.Button(self.dataButtons, text="Quit", command=self.quit)
         self.quitButton.pack(side='right', anchor='e')
 
@@ -368,6 +375,7 @@ class Main(tk.Frame):
     def load(self):    
         f = askopenfilename()
         self.data = Data(f)
+        self.filenamevar.set(f) 
         self.tnotvar.set(str(self.data.izero[0]))
         self.tmaxvar.set('-1')
         self.wl1var.set('0')

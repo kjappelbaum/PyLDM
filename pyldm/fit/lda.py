@@ -389,7 +389,7 @@ class LDA(object):
 	Contour_Levels = np.concatenate((C_neg, C_pos))
 	ax = fig_tsvd.add_subplot(111)
         C = ax.contourf(self.wls, self.taus, x, cmap=plt.cm.seismic, levels=Contour_Levels)
-	if GA_taus != None:
+	if GA_taus is not None:
 	    for i in range(len(GA_taus)):
 		ax.axhline(GA_taus[i], linestyle='dashed', color='k')
 	ax.set_yscale('log')
