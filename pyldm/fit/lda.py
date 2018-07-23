@@ -239,6 +239,7 @@ class LDA(object):
         return lcurve_x, lcurve_y,  k
 
     # Curvature function, for finding optimal alpha on L-curve
+    @jit
     def _calc_k(self, lx, ly):
         #dx = np.gradient(lx)
         #dy = np.gradient(ly, dx)
@@ -442,7 +443,7 @@ class LDA(object):
         ax2.plot(self.alphas, k, 'bo-')
         ax2.plot(self.alphas[kmax], k[kmax], 'ro')
         ax2.set_xlabel('Alpha', fontsize=14)
-        ax2.set_title('Curvature', fontsize=16)
+        ax2.set_title('Curvature, plots maximum gradients', fontsize=16)
         ax2.annotate(self.alphas[kmax], (self.alphas[kmax], k[kmax]))
         plt.draw()
 
